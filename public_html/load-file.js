@@ -27,7 +27,23 @@ document.getElementById('imp_btn').addEventListener('click',
 }
 , false);
 
+document.getElementById('first_map').addEventListener('click', 
+function loadFirstMap(){
+   localStorage.geodata = JSON.stringify(europe);
+   renderSVG();
+}, false);
 
+document.getElementById('sec_map').addEventListener('click', 
+function loadFirstMap(){
+   localStorage.geodata = JSON.stringify(czech);
+   renderSVG();
+}, false);
+
+document.getElementById('th_map').addEventListener('click', 
+function loadFirstMap(){
+   localStorage.geodata = JSON.stringify(stations);
+   renderSVG();
+}, false);
 
 
 

@@ -15,10 +15,7 @@ function renderSVG(){
     d3.select('svg').remove();
     d3.select('canvas').remove();
     
-//    var width = document.getElementById('content').offsetWidth,
-//        height = window.innerHeight,
-        var width = 700,height = 400,
-        centered;
+        var width = 700, height = 400, centered;
 
     // Define color scale
     var color = d3.scale.linear()
@@ -29,8 +26,8 @@ function renderSVG(){
     // Set svg width & height
     var svg = d3.select('#content')
           .append('svg')
-          .attr('width', 700)
-          .attr('height', 400); 
+          .attr('width', width)
+          .attr('height', height); 
         
     d3.select('svg').attr('display', 'inline');    
     var g = svg.append('g');

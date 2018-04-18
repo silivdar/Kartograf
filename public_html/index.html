@@ -21,13 +21,21 @@ and open the template in the editor.
                     <h3> choose file from your computer</h3>
                     <button id="imp_btn">import</button>
                     <h3> or just choose one of these:</h3>
+                    <div class="maps_btn">
+                        <button id="first_map">map of Europe</button>
+                        <button id="sec_map">map of Czech Republic</button>
+                        <button id="th_map">Stations</button>
+                    </div>
                     <h3> now choose the way you want to render your map:</h3>
                     <div class="choose_btn">
                         <button id="canvas_btn" onclick="renderCanvas()">HTML Canvas</button>
-                    <button id="svg_btn" onclick="renderSVG()">SVG</button>
-                    <button id="webgl_btn" onclick='renderWebgl()'>WebGL</button>
+                        <button id="svg_btn" onclick="renderSVG()">SVG</button>
+                        <button id="webgl_btn" onclick='renderWebgl()'>WebGL</button>
                 </div>
             </div>
+        <script src="europe_map.js"></script>
+        <script src="czech_map.js"></script>
+        <script src="stations.js"></script>
         <script src="load-file.js" type="text/javascript"></script>
         <script src="d3.v3.min.js"></script>
         <script src="svg_render.js" type="text/javascript"></script>

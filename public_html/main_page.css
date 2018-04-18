@@ -16,7 +16,7 @@ and open the template in the editor.
     border-style: solid;
     border-radius: 15px;
     margin: 0 55% 10px 0px;
-    padding: 10% 0 31% 0;
+    padding: 10% 0 28% 0;
 }
 
 #content {
@@ -64,6 +64,6 @@ h3 {
 }
 
 
-.choose_btn {
+.choose_btn, .maps_btn {
     text-align: center;
 }
