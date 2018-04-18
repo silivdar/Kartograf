@@ -6,6 +6,9 @@
 
 /* global FileReader */
 
+window.onload = function(){
+    localStorage.geodata = undefined;
+};
 
 document.getElementById('imp_btn').addEventListener('click',
     function selectAndUploadFile(){ 
@@ -19,7 +22,7 @@ document.getElementById('imp_btn').addEventListener('click',
               if(evt.target.readyState === FileReader.DONE){
 
                 localStorage.geodata = evt.target.result;
-                
+                renderSVG();
               }
           };
 
