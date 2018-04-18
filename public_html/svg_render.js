@@ -10,7 +10,9 @@
 var clicked = false;
 
 function renderSVG(){
-
+    
+    document.getElementById('content').style.padding = '8% 1.4% 19.9% 0';
+    
 //    var width = document.getElementById('content').offsetWidth,
 //        height = window.innerHeight,
         var width = 700,height = 400,
@@ -23,13 +25,15 @@ function renderSVG(){
        .range(['#E8E4F6', '#9488BF']);
 
     // Set svg width & height
-    var svg = d3.select('svg')
-        .attr('width', width)
-        .attr('height', height);
+    var svg = d3.select('#content')
+          .append('svg')
+          .attr('width', 700)
+          .attr('height', 400); 
         
     //everytime when render button is clicked previous context  is removed  
     svg.selectAll("*").remove();
-        
+    
+    d3.select('svg').attr('display', 'inline');    
     var g = svg.append('g');
 
     var mapLayer = g.append('g')

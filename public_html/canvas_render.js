@@ -13,13 +13,18 @@ function renderCanvas(){
     
    // if(clicked === false){
 
-        var geojson = {};
-          
+        
+        document.getElementById('content').style.padding = '5% 1.4% 22.9% 0';
+        
+        var geojson = {};  
             
-        var context = d3.select('#content canvas')
-          .node()
-          .getContext('2d');
-
+        var canvas = d3.select('#content')
+          .append('canvas')
+          .attr('width', 700)
+          .attr('height', 400);    
+                       
+         var context = canvas.node().getContext('2d');           
+         
         // Define color scale
         var color = d3.scale.linear()
            .domain([1, 20])
@@ -79,7 +84,7 @@ function renderCanvas(){
         }
 
         function update() {
-          context.clearRect(0, 0, 800, 400);
+          context.clearRect(0, 0, 700, 400);
 
           geojson.features.forEach(function(d) {
             context.beginPath();
@@ -94,9 +99,7 @@ function renderCanvas(){
           d3.select('canvas')
             .on('click', handleClick);
     
-          update();
-        
-
+          update();       
 
     }
     //clicked = true;
