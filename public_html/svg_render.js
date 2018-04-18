@@ -7,11 +7,13 @@
 /* global d3 */
 
 
-var clicked = false;
-
 function renderSVG(){
     
     document.getElementById('content').style.padding = '8% 1.4% 19.9% 0';
+    
+    // remove previous map if it was
+    d3.select('svg').remove();
+    d3.select('canvas').remove();
     
 //    var width = document.getElementById('content').offsetWidth,
 //        height = window.innerHeight,
@@ -30,9 +32,6 @@ function renderSVG(){
           .attr('width', 700)
           .attr('height', 400); 
         
-    //everytime when render button is clicked previous context  is removed  
-    svg.selectAll("*").remove();
-    
     d3.select('svg').attr('display', 'inline');    
     var g = svg.append('g');
 

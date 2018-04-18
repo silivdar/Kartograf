@@ -29,9 +29,15 @@ var fragmentShaderText =
 '}'
 ].join('\n');
 
+
 var renderWebgl = function () {
 
+    
         document.getElementById('content').style.padding = '8% 1.4% 19.9% 0';
+        
+        // remove previous map if it was
+        d3.select('canvas').remove();
+        d3.select('svg').remove();
         
         var canvas = d3.select('#content')
                   .append('canvas')

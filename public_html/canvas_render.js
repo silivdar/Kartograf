@@ -7,14 +7,14 @@
 
 /* global d3 */
 
-var clicked = false;
 
 function renderCanvas(){
     
-   // if(clicked === false){
-
-        
         document.getElementById('content').style.padding = '5% 1.4% 22.9% 0';
+        
+        // remove previous map if it was
+        d3.select('canvas').remove();
+        d3.select('svg').remove();
         
         var geojson = {};  
             
@@ -39,7 +39,7 @@ function renderCanvas(){
         // guess for the projection
         var center = d3.geo.centroid(mapData);
         var scale  = 150;
-        var offset = [800/2.5, 400/2];
+        var offset = [800/2.2, 400/2];
         var projection = d3.geo.mercator().scale(scale).center(center)
             .translate(offset);
 
@@ -100,7 +100,5 @@ function renderCanvas(){
             .on('click', handleClick);
     
           update();       
-
     }
-    //clicked = true;
-//}
+
