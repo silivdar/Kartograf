@@ -6,6 +6,7 @@
 
 /* global FileReader */
 
+//clean localstorage
 window.onload = function(){
     localStorage.geodata = undefined;
 };
