@@ -83,6 +83,7 @@ var renderWebgl = function () {
         
 	// Create buffers
         
+        //coordinates for test
 	var triangleVertices = 
 	[ // X, Y,       R, G, B
 		0.5, 0.5,    1.0, 1.0, 1.0,
@@ -91,9 +92,48 @@ var renderWebgl = function () {
 	];
        
        //imported data
-        //var mapData = JSON.parse(localStorage.geodata);
-        //var data = earcut.flatten(mapData.features['geometry'].coordinates);
+       //getting coordinates in array
+        var mapData = JSON.parse(localStorage.geodata);
         
+        
+        //array of arrays with coordinates; 
+        var coord = [];
+        var k = 0;
+        for(var i = 0; i < mapData.features.length; i++){
+           // k = 0;
+                for (var n = 0; n < mapData.features[i].geometry.coordinates[0].length; n++){
+                    coord[k] = mapData.features[i].geometry.coordinates[0][n];
+                    k++;
+                   // coord[k] = mapData.features[i].geometry.coordinates[0][n];
+                    //k++;
+                }
+        }
+        console.log(coord);
+        console.log(coord.length);
+        
+        
+        //all coordinates in one array
+        var coord2 = [];
+        var k = 0;
+        for(var i = 0; i < mapData.features.length; i++){
+           // k = 0;
+                for (var n = 0; n < mapData.features[i].geometry.coordinates[0].length; n++){
+                    coord2[k] = mapData.features[i].geometry.coordinates[0][1];
+                    k++;
+                    coord2[k] = mapData.features[i].geometry.coordinates[0][1];
+                    k++;
+                }
+        }
+        console.log(coord2);
+        console.log(coord2.length);
+        
+        
+        //triangulation
+        //var data = earcut.flatten(coord);
+        //var triang = earcut(data.holes, data.vertices, 2);
+       // console.log(triang);
+
+
 
 	var triangleVertexBufferObject = gl.createBuffer();
 	gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexBufferObject);

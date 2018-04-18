@@ -11,7 +11,7 @@ var clicked = false;
 
 function renderCanvas(){
     
-    if(clicked === false){
+   // if(clicked === false){
 
         var geojson = {};
           
@@ -25,7 +25,8 @@ function renderCanvas(){
            .domain([1, 20])
            .clamp(true)
            .range(['#E8E4F6', '#9488BF']); 
-            
+        
+        
         //imported data
         var mapData = JSON.parse(localStorage.geodata);
         //var features = mapData.features;
@@ -98,5 +99,5 @@ function renderCanvas(){
 
 
     }
-    clicked = true;
-}
+    //clicked = true;
+//}

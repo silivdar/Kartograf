@@ -11,7 +11,6 @@ var clicked = false;
 
 function renderSVG(){
 
-if(clicked === false){//function needs to be provided just once
 //    var width = document.getElementById('content').offsetWidth,
 //        height = window.innerHeight,
         var width = 700,height = 400,
@@ -27,7 +26,10 @@ if(clicked === false){//function needs to be provided just once
     var svg = d3.select('svg')
         .attr('width', width)
         .attr('height', height);
-
+        
+    //everytime when render button is clicked previous context  is removed  
+    svg.selectAll("*").remove();
+        
     var g = svg.append('g');
 
     var mapLayer = g.append('g')
@@ -117,5 +119,4 @@ if(clicked === false){//function needs to be provided just once
       textName.text('');
     }
    }
-   clicked = true;
-}
+  
