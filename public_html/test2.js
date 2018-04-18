@@ -118,7 +118,7 @@ var renderWebgl = function () {
         for(var i = 0; i < mapData.features.length; i++){
            // k = 0;
                 for (var n = 0; n < mapData.features[i].geometry.coordinates[0].length; n++){
-                    coord2[k] = mapData.features[i].geometry.coordinates[0][1];
+                    coord2[k] = mapData.features[i].geometry.coordinates[0][0];
                     k++;
                     coord2[k] = mapData.features[i].geometry.coordinates[0][1];
                     k++;
