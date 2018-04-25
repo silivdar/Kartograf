@@ -52,7 +52,6 @@ function renderCanvas(){
         var projection = d3.geo.mercator().scale(scale).center(center)
             .translate(offset);
        
-        console.log(projection);
         var geoGenerator = d3.geoPath()
           .projection(projection)
           .context(context);
