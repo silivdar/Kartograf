@@ -648,4 +648,3 @@ earcut.flatten = function (data) {
     }
     return result;
 };
-
