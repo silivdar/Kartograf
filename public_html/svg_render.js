@@ -15,13 +15,13 @@ function renderSVG(){
     d3.select('svg').remove();
     d3.select('canvas').remove();
     
-        var width = 700, height = 400, centered;
+    var width = 700, height = 400, centered;
 
     // Define color scale
     var color = d3.scale.linear()
-       .domain([1, 20])
-       .clamp(true)
-       .range(['#E8E4F6', '#9488BF']);
+          .domain([1, 20])
+          .clamp(true)
+          .range(['#E8E4F6', '#9488BF']);
 
     // Set svg width & height
     var svg = d3.select('#content')
@@ -29,16 +29,17 @@ function renderSVG(){
           .attr('width', width)
           .attr('height', height); 
         
-    d3.select('svg').attr('display', 'inline');    
+    d3.select('svg').attr('display', 'inline');   
+    
     var g = svg.append('g');
 
     var mapLayer = g.append('g')
-        .classed('map-layer', true);
+          .classed('map-layer', true);
 
     var textName = g.append('text')
-        .classed('text', true)
-        .attr('x', 20)
-        .attr('y', 45);
+          .classed('text', true)
+          .attr('x', 20)
+          .attr('y', 45);
 
     //imported data
     var mapData = JSON.parse(localStorage.geodata);
@@ -50,32 +51,32 @@ function renderSVG(){
     var scale  = 150;
     var offset = [width/2, height/2];
     var projection = d3.geo.mercator().scale(scale).center(center)
-        .translate(offset);
+          .translate(offset);
 
     var path = d3.geo.path().projection(projection);
 
-  // using the path determine the bounds of the current map and use 
-  // them to determine better values for the scale and translation
-  var bounds  = path.bounds(mapData);
-  var hscale  = scale * width  / (bounds[1][0] - bounds[0][0]);
-  var vscale  = scale * height / (bounds[1][1] - bounds[0][1]);
-  var scale   = (hscale < vscale) ? hscale : vscale;
-  var offset  = [width - (bounds[0][0] + bounds[1][0])/2,
-                 height - (bounds[0][1] + bounds[1][1])/2];
+    // using the path determine the bounds of the current map and use 
+    // them to determine better values for the scale and translation
+    var bounds  = path.bounds(mapData);
+    var hscale  = scale * width  / (bounds[1][0] - bounds[0][0]);
+    var vscale  = scale * height / (bounds[1][1] - bounds[0][1]);
+    var scale   = (hscale < vscale) ? hscale : vscale;
+    var offset  = [width - (bounds[0][0] + bounds[1][0])/2,
+        height - (bounds[0][1] + bounds[1][1])/2];
 
-  // new projection
-  projection = d3.geo.mercator().center(center)
-    .scale(scale).translate(offset);
+    // new projection
+    projection = d3.geo.mercator().center(center)
+      .scale(scale).translate(offset);
     
-  path = path.projection(projection);
+    path = path.projection(projection);
 
-  // Update color scale domain based on data
-  color.domain([0, d3.max(features, nameLength)]);
+    // Update color scale domain based on data
+    color.domain([0, d3.max(features, nameLength)]);
 
-  // Draw each object of geojson as a path
-  mapLayer.selectAll('path')
+    // Draw each object of geojson as a path
+    mapLayer.selectAll('path')
       .data(features)
-    .enter().append('path')
+      .enter().append('path')
       .attr('d', path)
       .attr('vector-effect', 'non-scaling-stroke')
       .style('fill', fill)
@@ -102,7 +103,7 @@ function renderSVG(){
     
     function drawText(text){
         textName.style('font-family','Arial')
-                .text(text);
+            .text(text);
     }
     
     // Highlight hovered object
@@ -118,5 +119,5 @@ function renderSVG(){
 
       textName.text('');
     }
-   }
+}
   

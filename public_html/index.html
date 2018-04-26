@@ -12,27 +12,26 @@ and open the template in the editor.
         <link href="main_page.css" rel="stylesheet">
     </head>
     <body>
+        <div id="content"></div>
         
-             <div id="content"></div>
-             
-            <div id="menu_area" >
-                    <!-- <button id="select_button" >Select</button> -->
-                    <input type="file" id="my_file" name="Select" >
-                    <h3> choose file from your computer</h3>
-                    <button id="imp_btn">import</button>
-                    <h3> or just choose one of these:</h3>
-                    <div class="maps_btn">
-                        <button id="first_map">map of Europe</button>
-                        <button id="sec_map">map of Czech Republic</button>
-                        <button id="th_map">Stations</button>
-                    </div>
-                    <h3> you can choose the way of rendering:</h3>
-                    <div class="choose_btn">
-                        <button id="canvas_btn" onclick="renderCanvas()">HTML Canvas</button>
-                        <button id="svg_btn" onclick="renderSVG()">SVG</button>
-                        <button id="webgl_btn" onclick='init()'>WebGL</button>
-                </div>
+        <div id="menu_area" >
+            <input type="file" id="my_file" name="Select" >
+            <h3> choose file from your computer</h3>
+            <button id="imp_btn">import</button>
+            <h3> or just choose one of these:</h3>
+            <div class="maps_btn">
+                <button id="first_map">map of Europe</button>
+                <button id="sec_map">map of Czech Republic</button>
+                <button id="th_map">Stations</button>
             </div>
+            <h3> you can choose the way of rendering:</h3>
+            <div class="choose_btn">
+                <button id="canvas_btn" onclick="renderCanvas()">HTML Canvas</button>
+                <button id="svg_btn" onclick="renderSVG()">SVG</button>
+                <button id="webgl_btn" onclick='init()'>WebGL</button>
+            </div>
+        </div>
+        
         <script src="europe_map.js"></script>
         <script src="czech_map.js"></script>
         <script src="stations.js"></script>

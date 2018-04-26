@@ -6,7 +6,7 @@
 
 /* global FileReader */
 
-//clean localstorage
+//clean localstorage everytime when page is reloaded
 window.onload = function(){
     localStorage.geodata = undefined;
 };
@@ -14,21 +14,20 @@ window.onload = function(){
 document.getElementById('imp_btn').addEventListener('click',
     function selectAndUploadFile(){ 
 
-          var file  = document.getElementById('my_file').files[0];
-          //console.log(file);
+        var file  = document.getElementById('my_file').files[0];
 
-          var reader = new FileReader();
+        var reader = new FileReader();
 
-          reader.onloadend = function(evt) {
-              if(evt.target.readyState === FileReader.DONE){
+        reader.onloadend = function(evt) {
+            if(evt.target.readyState === FileReader.DONE){
 
                 localStorage.geodata = evt.target.result;
                 renderSVG();
-              }
-          };
+            }
+        };
 
         reader.readAsBinaryString(file);
-}
+    }
 , false);
 
 document.getElementById('first_map').addEventListener('click', 
