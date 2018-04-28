@@ -101,10 +101,31 @@ var renderWebgl = function (vertexShaderText, fragmentShaderText) {
         //all coordinates put in one array
        var rvert = [];
        var feature = mapData.features[k];
-       for (var n = 0; n < feature.geometry.coordinates[0].length; n++){
-            rvert.push(feature.geometry.coordinates[0][n][0], feature.geometry.coordinates[0][n][1]);
-       }
        
+       // guess for the projection
+       var center = d3.geo.centroid(mapData);
+       var scale  = 150;
+       var offset = [700/1150, 400/500];
+       var projection = d3.geo.mercator().scale(scale).center(center)
+            .translate(offset);
+
+       var path = d3.geo.path().projection(projection);
+       var bounds  = path.bounds(mapData);
+       var hscale  = scale * 400  / (bounds[1][0] - bounds[0][0]);
+       var vscale  = scale * 100 / (bounds[1][1] - bounds[0][1]);
+       scale  = (hscale < vscale) ? hscale : vscale;
+
+       projection = d3.geo.mercator().scale(scale).center(center)
+            .translate(offset);
+       
+       for (var n = 0; n < feature.geometry.coordinates[0].length; n++){
+            var projCoord = projection(feature.geometry.coordinates[0][n]);
+            //projCoord = projection.invert(projCoord);
+            rvert.push(projCoord[0], projCoord[1]);
+            projCoord = [];
+            //rvert.push(feature.geometry.coordinates[0][n][0], feature.geometry.coordinates[0][n][1]);
+       }
+              
        //by using earcut.js script get indices of a feature
        var featureIndices = earcut(rvert);
 
@@ -133,7 +154,7 @@ var renderWebgl = function (vertexShaderText, fragmentShaderText) {
        gl.enableVertexAttribArray(positionAttribLocation);
 
        var featureColor = gl.getUniformLocation(program, 'featureColor');
-       gl.uniform3fv(featureColor, [1.0, 0.0, 0.0]);
+       gl.uniform3fv(featureColor, [0.55, 0.10, 0.98]);
 
        gl.drawElements(gl.TRIANGLES, featureIndices.length, gl.UNSIGNED_SHORT, 0);
     }
