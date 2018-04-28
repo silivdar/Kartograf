@@ -10,6 +10,7 @@
 
 function renderCanvas(){
     
+    console.time('canvas render time');
     document.getElementById('content').style.padding = '5% 1.4% 22.9% 0';
 
     // remove previous map 
@@ -96,6 +97,7 @@ function renderCanvas(){
     d3.select('canvas')
       .on('click', handleClick);
 
-    update();       
+    update(); 
+    console.timeEnd('canvas render time');
 }
 

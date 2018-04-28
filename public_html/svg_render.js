@@ -9,6 +9,7 @@
 
 function renderSVG(){
     
+    console.time('svg render time');
     document.getElementById('content').style.padding = '8% 1.4% 19.9% 0';
     
     // remove previous map if it was
@@ -119,5 +120,7 @@ function renderSVG(){
 
       textName.text('');
     }
+   
+    console.timeEnd("svg render time");
 }
   
