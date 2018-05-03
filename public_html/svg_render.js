@@ -97,7 +97,6 @@ function renderSVG(){
     function fill(d){
       return color(nameLength(d));
     }
-
     
     function drawText(text){
         textName.style('font-family','Arial')
