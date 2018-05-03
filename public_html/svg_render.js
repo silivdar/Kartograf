@@ -80,10 +80,7 @@ function renderSVG(){
       .enter().append('path')
       .attr('d', path)
       .attr('vector-effect', 'non-scaling-stroke')
-      .style('fill', fill)
-      .on('mouseover', mouseover)
-      .on('mouseout', mouseout);
-
+      .style('fill', fill);
 
     // Get object name
     function getName(d){
@@ -120,6 +117,26 @@ function renderSVG(){
 
       textName.text('');
     }
+    
+    var state = {
+      clickedLocation: null
+    };
+    
+    function handleClick() {
+      var pos = d3.mouse(this);
+      state.clickedLocation = projection.invert(pos);
+      update();
+    }
+   
+   function update(){
+       mapLayer.selectAll('path')
+        .style('fill', function(d){return state.clickedLocation && d3.geoContains(d, state.clickedLocation) ? 'pink' : fill(d)});
+   }
+   
+   d3.select('svg')
+      .on('click', handleClick);
+
+    update(); 
    
     console.timeEnd("svg render time");
     console.log("feature count: " + featuresCount);
