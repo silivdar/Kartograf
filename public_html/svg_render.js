@@ -44,8 +44,8 @@ function renderSVG(){
 
     //imported data
     var mapData = JSON.parse(localStorage.geodata);
-    //console.log(mapData);
     var features = mapData.features;
+    var featuresCount = mapData.features.length;
 
     // guess for the projection
     var center = d3.geo.centroid(mapData);
@@ -122,5 +122,6 @@ function renderSVG(){
     }
    
     console.timeEnd("svg render time");
+    console.log("feature count: " + featuresCount);
 }
   

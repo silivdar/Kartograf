@@ -34,6 +34,7 @@ function renderCanvas(){
 
     //imported data
     var mapData = JSON.parse(localStorage.geodata);
+    var featuresCount = mapData.features.length;
 
     // guess for the projection
     var center = d3.geo.centroid(mapData);
@@ -99,5 +100,6 @@ function renderCanvas(){
 
     update(); 
     console.timeEnd('canvas render time');
+    console.log("feature count: " + featuresCount);
 }
 

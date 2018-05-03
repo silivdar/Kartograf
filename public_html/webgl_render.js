@@ -12,6 +12,7 @@ var loadShader = function(fileName, callback){
 
 
 var init = function (){
+    console.time('webgl render time');
     loadShader('vs.glsl', function(err, vs){
         if(err){
             console.error(err);
@@ -25,6 +26,7 @@ var init = function (){
             });
         }
     }); 
+    console.timeEnd('webgl render time');
 };
 
 
