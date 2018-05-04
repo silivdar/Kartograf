@@ -44,7 +44,7 @@ function loadFirstMap(){
 
 document.getElementById('th_map').addEventListener('click', 
 function loadFirstMap(){
-   localStorage.geodata = JSON.stringify(stations);
+   localStorage.geodata = JSON.stringify(africa);
    renderSVG();
 }, false);
 

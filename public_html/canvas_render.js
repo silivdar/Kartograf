@@ -87,6 +87,7 @@ function renderCanvas(){
 
       geojson.features.forEach(function(d) {
         context.beginPath();
+       // if(state.clickedLocation && d3.geoContains(d, state.clickedLocation)){}else{};
         context.fillStyle = state.clickedLocation && d3.geoContains(d, state.clickedLocation) ? 'pink' : fill(d);
         geoGenerator(d);
         context.fill();
@@ -99,6 +100,7 @@ function renderCanvas(){
       .on('click', handleClick);
 
     update(); 
+    
     console.timeEnd('canvas render time');
     console.log("feature count: " + featuresCount);
 }
