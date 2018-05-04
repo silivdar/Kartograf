@@ -11,22 +11,23 @@
 function renderCanvas(){
     
     console.time('canvas render time');
-    document.getElementById('content').style.padding = '5% 1.4% 22.9% 0';
+    document.getElementById('content').style.padding = '8.08% 1.4% 19.8% 0.5%';
 
     // remove previous map 
     d3.select('canvas').remove();
     d3.select('svg').remove();
 
-    var geojson = {};  
+    var geojson = {}; 
+    
+    var width = 700, height = 400;
 
     var canvas = d3.select('#content')
       .append('canvas')
-      .attr('width', 700)
-      .attr('height', 400);    
+      .attr('width', width)
+      .attr('height', height);    
 
     var context = canvas.node().getContext('2d');           
 
-    // Define color scale
     var color = d3.scale.linear()
        .domain([1, 20])
        .clamp(true)
@@ -39,14 +40,14 @@ function renderCanvas(){
     // guess for the projection
     var center = d3.geo.centroid(mapData);
     var scale  = 150;
-    var offset = [800/2.2, 400/2];
+    var offset = [width/2, height/2.15];
     var projection = d3.geo.mercator().scale(scale).center(center)
         .translate(offset);
 
     var path = d3.geo.path().projection(projection);
     var bounds  = path.bounds(mapData);
-    var hscale  = scale * 800  / (bounds[1][0] - bounds[0][0]);
-    var vscale  = scale * 400 / (bounds[1][1] - bounds[0][1]);
+    var hscale  = scale * width  / (bounds[1][0] - bounds[0][0]);
+    var vscale  = scale * height / (bounds[1][1] - bounds[0][1]);
     var scale   = (hscale < vscale) ? hscale : vscale;
 
     var projection = d3.geo.mercator().scale(scale).center(center)
@@ -60,18 +61,15 @@ function renderCanvas(){
       clickedLocation: null
     };
 
-    // Get object name
     function getName(d){
       return d && d.properties ? d.properties.name : null;
     }
 
-    // Get object name length
     function nameLength(d){
       var n = getName(d);
       return n ? n.length : 0;
     }
 
-    // Get object color
     function fill(d){
       return color(nameLength(d));
     }
@@ -83,11 +81,10 @@ function renderCanvas(){
     }
 
     function update() {
-      context.clearRect(0, 0, 700, 400);
+      context.clearRect(0, 0, width, height);
 
       geojson.features.forEach(function(d) {
         context.beginPath();
-       // if(state.clickedLocation && d3.geoContains(d, state.clickedLocation)){}else{};
         context.fillStyle = state.clickedLocation && d3.geoContains(d, state.clickedLocation) ? 'pink' : fill(d);
         geoGenerator(d);
         context.fill();

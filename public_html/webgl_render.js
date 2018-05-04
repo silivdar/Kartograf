@@ -22,11 +22,11 @@ var init = function (){
                    console.error(err);
                } else {
                  renderWebgl(vs, fs);
+                 console.timeEnd('webgl render time');
                }
             });
         }
     }); 
-    console.timeEnd('webgl render time');
 };
 
 
@@ -38,10 +38,12 @@ var renderWebgl = function (vertexShaderText, fragmentShaderText) {
     d3.select('canvas').remove();
     d3.select('svg').remove();
 
+    var width = 700, height = 400;
+
     var canvas = d3.select('#content')
             .append('canvas')
-            .attr('width', 700)
-            .attr('height', 400);    
+            .attr('width', width)
+            .attr('height', height);    
 
     var gl = canvas.node().getContext('webgl');
 
@@ -107,13 +109,13 @@ var renderWebgl = function (vertexShaderText, fragmentShaderText) {
        // guess for the projection
        var center = d3.geo.centroid(mapData);
        var scale  = 150;
-       var offset = [700/1150, 400/500];
+       var offset = [width/1150, height/500];
        var projection = d3.geo.mercator().scale(scale).center(center)
             .translate(offset);
 
        var path = d3.geo.path().projection(projection);
        var bounds  = path.bounds(mapData);
-       var hscale  = scale * 400  / (bounds[1][0] - bounds[0][0]);
+       var hscale  = scale * 700  / (bounds[1][0] - bounds[0][0]);
        var vscale  = scale * 100 / (bounds[1][1] - bounds[0][1]);
        scale  = (hscale < vscale) ? hscale : vscale;
 
