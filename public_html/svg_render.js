@@ -39,7 +39,7 @@ function renderSVG(){
 
     var textName = g.append('text')
           .classed('text', true)
-          .attr('x', 20)
+          .attr('x', 50)
           .attr('y', 45);
 
     //imported data
@@ -115,37 +115,9 @@ function renderSVG(){
     function mouseout(){
       mapLayer.selectAll('path')
         .style('fill', function(d){return centered && d === centered ? '#D5708B' : fill(d);});
-
       textName.text('');
     }
     
-    var state = {
-      clickedLocation: null
-    };
-    
-    function handleClick(d) {
-      var pos = d3.mouse(this);
-      state.clickedLocation = projection.invert(pos);
-      update();
-    }
-   
-   function update(){
-       mapLayer.selectAll('path')
-        .style('fill', function(d){
-            if(state.clickedLocation && d3.geoContains(d, state.clickedLocation)){ 
-                drawText(getName(d));
-                return 'pink'; 
-            }else{ 
-                textName.text('');
-                return fill(d);
-            }
-                      });
-   }
-   
-//   d3.select('svg')
-//      .on('click', handleClick);
-
-   
     console.timeEnd("svg render time");
     console.log("feature count: " + featuresCount);
 }
