@@ -16,7 +16,7 @@ function renderSVG(){
     d3.select('svg').remove();
     d3.select('canvas').remove();
     
-    var width = 700, height = 400, centered;
+    var width = 700, height = 400;
 
     // Define color scale
     var color = d3.scale.linear()
@@ -32,16 +32,6 @@ function renderSVG(){
         
     d3.select('svg').attr('display', 'inline');   
     
-    var g = svg.append('g');
-
-    var mapLayer = g.append('g')
-          .classed('map-layer', true);
-
-    var textName = g.append('text')
-          .classed('text', true)
-          .attr('x', 50)
-          .attr('y', 45);
-
     //imported data
     var mapData = JSON.parse(localStorage.geodata);
     var features = mapData.features;
@@ -70,6 +60,23 @@ function renderSVG(){
       .scale(scale).translate(offset);
     
     path = path.projection(projection);
+    
+    var zoom = d3.behavior.zoom()
+    .translate(projection.translate())
+    .scale(projection.scale())
+    .scaleExtent([height, 8 * height])
+    .size(width, height)
+    .on("zoom", zoomed);
+    
+    var g = svg.append('g').call(zoom);
+
+    var mapLayer = g.append('g')
+          .classed('map-layer', true);
+
+    var textName = g.append('text')
+          .classed('text', true)
+          .attr('x', 50)
+          .attr('y', 45); 
 
     // Update color scale domain based on data
     color.domain([0, d3.max(features, nameLength)]);
@@ -118,15 +125,19 @@ function renderSVG(){
         mapLayer.selectAll('path')
             .style('fill', function(d){
             if(state.clickedLocation && d3.geoContains(d, state.clickedLocation)){
-                 drawText(getName(d));
-            return  'pink';
+                // drawText(getName(d));
+            return 'pink';
         } else {
-             drawText(" ");
+            // drawText(" ");
             return fill(d);
             }});
-     
     }
     
+    function zoomed() {
+      projection.translate(d3.event.translate).scale(d3.event.scale);
+      g.selectAll("path").attr("d", path);
+    }
+
     console.timeEnd("svg render time");
     console.log("feature count: " + featuresCount);
 }
