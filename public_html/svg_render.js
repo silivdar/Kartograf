@@ -80,8 +80,9 @@ function renderSVG(){
       .enter().append('path')
       .attr('d', path)
       .attr('vector-effect', 'non-scaling-stroke')
-      .on("mouseover", mouseover)
-      .on("mouseout", mouseout)
+//      .on("mouseover", mouseover)
+//      .on("mouseout", mouseout)
+      .on("click", click)
       .style('fill', fill);
 
     // Get object name
@@ -116,6 +117,29 @@ function renderSVG(){
       mapLayer.selectAll('path')
         .style('fill', function(d){return centered && d === centered ? '#D5708B' : fill(d);});
       textName.text('');
+    }
+    
+    var state = {
+      clickedLocation: null
+    };
+    
+    function click(){
+       var pos = d3.mouse(this);
+      state.clickedLocation = projection.invert(pos);
+      update();
+    }
+    
+    function update(){
+        mapLayer.selectAll('path')
+            .style('fill', function(d){
+            if(state.clickedLocation && d3.geoContains(d, state.clickedLocation)){
+                 drawText(getName(d));
+            return  'pink';
+        } else {
+             drawText(" ");
+            return fill(d);
+            }});
+     
     }
     
     console.timeEnd("svg render time");

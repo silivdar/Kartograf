@@ -104,19 +104,21 @@ var renderWebgl = function (vertexShaderText, fragmentShaderText) {
     // guess for the projection
     var center = d3.geo.centroid(mapData);
     var scale  = 150;
-    var offset = [width/1150, height/500];
-    var projection = d3.geo.mercator().scale(scale).center(center)
-        .translate(offset);
+    var offset = [width/100, height/500];
+    //var projection = d3.geo.mercator().scale(scale).center(center)
+     //   .translate(offset);
+    var projection = d3.geo.mercator();
 
     var path = d3.geo.path().projection(projection);
     var bounds  = path.bounds(mapData);
-    var hscale  = scale * 700  / (bounds[1][0] - bounds[0][0]);
-    var vscale  = scale * 100 / (bounds[1][1] - bounds[0][1]);
+    console.log(bounds);
+    var hscale  = scale * 700  / (bounds[0][0] - bounds[0][1]);
+    var vscale  = scale * 100 / (bounds[1][0] - bounds[1][1]);
     scale  = (hscale < vscale) ? hscale : vscale;
-
+    
     projection = d3.geo.mercator().scale(scale).center(center)
         .translate(offset);
-
+ 
     var vertcount = 0;
      
     //rendering each feature in a loop
@@ -128,12 +130,12 @@ var renderWebgl = function (vertexShaderText, fragmentShaderText) {
        
        for (var n = 0; n < feature.geometry.coordinates[0].length; n++){
             var projCoord = projection(feature.geometry.coordinates[0][n]);
-            //projCoord = projection.invert(projCoord);
             rvert.push(projCoord[0], projCoord[1]);
-            projCoord = [];
             //rvert.push(feature.geometry.coordinates[0][n][0], feature.geometry.coordinates[0][n][1]);
+             projCoord = [];
        }
-         vertcount+=rvert.length/2;    
+         vertcount+=rvert.length/2;  
+        
        //by using earcut.js script get indices of a feature
        var featureIndices = earcut(rvert);
 
