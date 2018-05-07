@@ -80,8 +80,6 @@ function renderSVG(){
       .enter().append('path')
       .attr('d', path)
       .attr('vector-effect', 'non-scaling-stroke')
-//      .on("mouseover", mouseover)
-//      .on("mouseout", mouseout)
       .on("click", click)
       .style('fill', fill);
 
@@ -104,19 +102,6 @@ function renderSVG(){
     function drawText(text){
         textName.style('font-family','Arial')
             .text(text);
-    }
-    
-    // Highlight hovered object
-    function mouseover(d){
-      d3.select(this).style('fill', 'pink');
-      drawText(getName(d));
-    }
-    
-    // Reset object color
-    function mouseout(){
-      mapLayer.selectAll('path')
-        .style('fill', function(d){return centered && d === centered ? '#D5708B' : fill(d);});
-      textName.text('');
     }
     
     var state = {
