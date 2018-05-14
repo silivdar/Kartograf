@@ -64,7 +64,7 @@ function renderSVG(){
     var zoom = d3.behavior.zoom()
     .translate(projection.translate())
     .scale(projection.scale())
-    .scaleExtent([height, 8 * height])
+    .scaleExtent([1, 8 * height])
     .size(width, height)
     .on("zoom", zoomed);
     

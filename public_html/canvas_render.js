@@ -33,6 +33,8 @@ function renderCanvas(){
        .clamp(true)
        .range(['#E8E4F6', '#9488BF']); 
 
+    //canvas.call(d3.zoom().scaleExtent([1, 8]).on('zoom'), zoomed);     
+       
     //imported data
     var mapData = JSON.parse(localStorage.geodata);
     var featuresCount = mapData.features.length;
@@ -57,6 +59,16 @@ function renderCanvas(){
       .projection(projection)
       .context(context);
 
+    function zoomed(){
+        var transf = d3.event.transform;
+        context.save();
+        context.clearRect(0, 0, width, height);
+        context.translate(transf.x, transf.y);
+        context.scale(transf.k, transf.k);
+        update();
+        context.restore();
+    }
+      
     var state = {
       clickedLocation: null
     };
@@ -80,9 +92,9 @@ function renderCanvas(){
       update();
     }
 
+    geojson = mapData;
+    
     function update() {
-      context.clearRect(0, 0, width, height);
-
       geojson.features.forEach(function(d) {
         context.beginPath();
         context.fillStyle = state.clickedLocation && d3.geoContains(d, state.clickedLocation) ? 'pink' : fill(d);
@@ -90,8 +102,6 @@ function renderCanvas(){
         context.fill();
       });
     }
-
-    geojson = mapData;
 
     d3.select('canvas')
       .on('click', handleClick);
