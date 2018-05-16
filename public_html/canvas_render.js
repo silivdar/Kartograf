@@ -32,8 +32,6 @@ function renderCanvas(){
        .domain([1, 20])
        .clamp(true)
        .range(['#E8E4F6', '#9488BF']); 
-
-    //canvas.call(d3.zoom().scaleExtent([1, 8]).on('zoom'), zoomed);     
        
     //imported data
     var mapData = JSON.parse(localStorage.geodata);
@@ -59,14 +57,17 @@ function renderCanvas(){
       .projection(projection)
       .context(context);
 
+    canvas.call(d3.zoom().scaleExtent([1, 8]).on('zoom', zoomed));
+    
     function zoomed(){
         var transf = d3.event.transform;
-        context.save();
-        context.clearRect(0, 0, width, height);
-        context.translate(transf.x, transf.y);
-        context.scale(transf.k, transf.k);
-        update();
-        context.restore();
+        d3.save();
+        canvas.clearRect(0, 0, width, height);
+        d3.scale(transf.k, transf.k);
+        d3.translate(transf.x, transf.y);
+        draw();
+        d3.restore();
+        
     }
       
     var state = {
@@ -89,12 +90,12 @@ function renderCanvas(){
     function handleClick() {
       var pos = d3.mouse(this);
       state.clickedLocation = projection.invert(pos);
-      update();
+      draw();
     }
 
     geojson = mapData;
     
-    function update() {
+    function draw() {
       geojson.features.forEach(function(d) {
         context.beginPath();
         context.fillStyle = state.clickedLocation && d3.geoContains(d, state.clickedLocation) ? 'pink' : fill(d);
@@ -106,7 +107,7 @@ function renderCanvas(){
     d3.select('canvas')
       .on('click', handleClick);
 
-    update(); 
+    draw(); 
     
     console.timeEnd('canvas render time');
     console.log("feature count: " + featuresCount);

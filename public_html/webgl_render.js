@@ -103,21 +103,13 @@ var renderWebgl = function (vertexShaderText, fragmentShaderText) {
     
     // guess for the projection
     var center = d3.geo.centroid(mapData);
-    var scale  = 150;
     var offset = [width/100, height/500];
-    //var projection = d3.geo.mercator().scale(scale).center(center)
-     //   .translate(offset);
-    var projection = d3.geo.mercator();
-
-    var path = d3.geo.path().projection(projection);
-    var bounds  = path.bounds(mapData);
-    console.log(bounds);
-    var hscale  = scale * 700  / (bounds[0][0] - bounds[0][1]);
-    var vscale  = scale * 100 / (bounds[1][0] - bounds[1][1]);
-    scale  = (hscale < vscale) ? hscale : vscale;
     
-    projection = d3.geo.mercator().scale(scale).center(center)
-        .translate(offset);
+//    projection = d3.geo.mercator().scale(scale).center(center)
+//        .translate(offset);
+
+    projection = d3.geo.mercator().center(center)
+        .translate(offset).scale(60);
  
     var vertcount = 0;
      
@@ -130,8 +122,8 @@ var renderWebgl = function (vertexShaderText, fragmentShaderText) {
        
        for (var n = 0; n < feature.geometry.coordinates[0].length; n++){
             var projCoord = projection(feature.geometry.coordinates[0][n]);
-            rvert.push(projCoord[0], projCoord[1]);
-            //rvert.push(feature.geometry.coordinates[0][n][0], feature.geometry.coordinates[0][n][1]);
+           // rvert.push(projCoord[0], projCoord[1]);
+           rvert.push(feature.geometry.coordinates[0][n][0], feature.geometry.coordinates[0][n][1]);
              projCoord = [];
        }
          vertcount+=rvert.length/2;  
@@ -162,7 +154,7 @@ var renderWebgl = function (vertexShaderText, fragmentShaderText) {
        );
 
        gl.enableVertexAttribArray(positionAttribLocation);
-
+       
        var featureColor = gl.getUniformLocation(program, 'featureColor');
        gl.uniform3fv(featureColor, [0.55, 0.10, 0.98]);
 

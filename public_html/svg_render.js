@@ -73,10 +73,10 @@ function renderSVG(){
     var mapLayer = g.append('g')
           .classed('map-layer', true);
 
-    var textName = g.append('text')
-          .classed('text', true)
-          .attr('x', 50)
-          .attr('y', 45); 
+//    var textName = g.append('text')
+//          .classed('text', true)
+//          .attr('x', 50)
+//          .attr('y', 45); 
 
     // Update color scale domain based on data
     color.domain([0, d3.max(features, nameLength)]);
@@ -106,10 +106,10 @@ function renderSVG(){
       return color(nameLength(d));
     }
     
-    function drawText(text){
-        textName.style('font-family','Arial')
-            .text(text);
-    }
+//    function drawText(text){
+//        textName.style('font-family','Arial')
+//            .text(text);
+//    }
     
     var state = {
       clickedLocation: null
@@ -130,7 +130,8 @@ function renderSVG(){
         } else {
             // drawText(" ");
             return fill(d);
-            }});
+            }
+        });
     }
     
     function zoomed() {
