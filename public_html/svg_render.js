@@ -16,7 +16,7 @@ function renderSVG(){
     d3.select('svg').remove();
     d3.select('canvas').remove();
     
-    var width = 700, height = 400;
+    var width = 700, height = 500;
 
     // Define color scale
     var color = d3.scale.linear()
@@ -41,8 +41,7 @@ function renderSVG(){
     var center = d3.geo.centroid(mapData);
     var scale  = 150;
     var offset = [width/2, height/2];
-    var projection = d3.geo.mercator().scale(scale).center(center)
-          .translate(offset);
+    var projection = d3.geo.mercator().scale(scale).translate(offset);
 
     var path = d3.geo.path().projection(projection);
 
@@ -56,8 +55,7 @@ function renderSVG(){
         height - (bounds[0][1] + bounds[1][1])/2];
 
     // new projection
-    projection = d3.geo.mercator().center(center)
-      .scale(scale).translate(offset);
+    projection = d3.geo.mercator().scale(scale).translate(offset);
     
     path = path.projection(projection);
     

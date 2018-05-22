@@ -19,7 +19,7 @@ function renderCanvas(){
 
     var geojson = {}; 
     
-    var width = 700, height = 400;
+    var width = 700, height = 500;
 
     var canvas = d3.select('#content')
       .append('canvas')
@@ -40,9 +40,8 @@ function renderCanvas(){
     // guess for the projection
     var center = d3.geo.centroid(mapData);
     var scale  = 150;
-    var offset = [width/2, height/2.15];
-    var projection = d3.geo.mercator().scale(scale).center(center)
-        .translate(offset);
+    var offset = [width/2, height/2];
+    var projection = d3.geo.mercator().scale(scale).translate(offset);
 
     var path = d3.geo.path().projection(projection);
     var bounds  = path.bounds(mapData);
@@ -50,8 +49,7 @@ function renderCanvas(){
     var vscale  = scale * height / (bounds[1][1] - bounds[0][1]);
     var scale   = (hscale < vscale) ? hscale : vscale;
 
-    var projection = d3.geo.mercator().scale(scale).center(center)
-        .translate(offset);
+    var projection = d3.geo.mercator().scale(scale).translate(offset);
 
     var geoGenerator = d3.geoPath()
       .projection(projection)
@@ -67,7 +65,6 @@ function renderCanvas(){
         d3.translate(transf.x, transf.y);
         draw();
         d3.restore();
-        
     }
       
     var state = {
