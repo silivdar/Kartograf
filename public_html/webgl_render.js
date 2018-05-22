@@ -101,13 +101,12 @@ var renderWebgl = function (vertexShaderText, fragmentShaderText) {
     
     // guess for the projection
     var center = d3.geo.centroid(mapData);
-    var offset = [width/100, height/500];
+    var offset = [width/250, height/500];
     
 //    projection = d3.geo.mercator().scale(scale).center(center)
 //        .translate(offset);
 
-    projection = d3.geo.mercator().center(center)
-        .translate(offset).scale(100);
+    projection = d3.geo.mercator().translate(offset).scale(60);
  
     var vertcount = 0;
     var totalTime = 0; 

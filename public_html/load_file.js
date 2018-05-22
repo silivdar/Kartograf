@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-/* global FileReader */
+/* global FileReader, projection */
 
 //clean localstorage everytime when page is reloaded
 window.onload = function(){
@@ -22,7 +22,7 @@ document.getElementById('imp_btn').addEventListener('click',
             if(evt.target.readyState === FileReader.DONE){
 
                 localStorage.geodata = evt.target.result;
-                renderSVG();
+                renderSVG(projection);
             }
         };
 
@@ -33,19 +33,19 @@ document.getElementById('imp_btn').addEventListener('click',
 document.getElementById('first_map').addEventListener('click', 
 function loadFirstMap(){
    localStorage.geodata = JSON.stringify(europe);
-   renderSVG();
+   renderSVG(projection);
 }, false);
 
 document.getElementById('sec_map').addEventListener('click', 
 function loadFirstMap(){
    localStorage.geodata = JSON.stringify(czech);
-   renderSVG();
+   renderSVG(projection);
 }, false);
 
 document.getElementById('th_map').addEventListener('click', 
 function loadFirstMap(){
    localStorage.geodata = JSON.stringify(africa);
-   renderSVG();
+   renderSVG(projection);
 }, false);
 
 

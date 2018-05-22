@@ -8,7 +8,7 @@
 /* global d3 */
 
 
-function renderCanvas(){
+function renderCanvas(projection){
     
     console.time('canvas render time');
     document.getElementById('content').style.padding = '8.08% 1.4% 19.8% 0.5%';
@@ -19,7 +19,7 @@ function renderCanvas(){
 
     var geojson = {}; 
     
-    var width = 700, height = 500;
+    var width = 700, height = 400;
 
     var canvas = d3.select('#content')
       .append('canvas')
@@ -38,35 +38,26 @@ function renderCanvas(){
     var featuresCount = mapData.features.length;
 
     // guess for the projection
-    var center = d3.geo.centroid(mapData);
-    var scale  = 150;
-    var offset = [width/2, height/2];
-    var projection = d3.geo.mercator().scale(scale).translate(offset);
-
-    var path = d3.geo.path().projection(projection);
-    var bounds  = path.bounds(mapData);
-    var hscale  = scale * width  / (bounds[1][0] - bounds[0][0]);
-    var vscale  = scale * height / (bounds[1][1] - bounds[0][1]);
-    var scale   = (hscale < vscale) ? hscale : vscale;
-
-    var projection = d3.geo.mercator().scale(scale).translate(offset);
+//    var center = d3.geo.centroid(mapData);
+//    var scale  = 150;
+//    var offset = [width/2, height/2.15];
+//    var projection = d3.geo.mercator().scale(scale).center(center)
+//        .translate(offset);
+//
+//    var path = d3.geo.path().projection(projection);
+//    var bounds  = path.bounds(mapData);
+//    var hscale  = scale * width  / (bounds[1][0] - bounds[0][0]);
+//    var vscale  = scale * height / (bounds[1][1] - bounds[0][1]);
+//    var scale   = (hscale < vscale) ? hscale : vscale;
+//
+//    var projection = d3.geo.mercator().scale(scale).center(center)
+//        .translate(offset);
 
     var geoGenerator = d3.geoPath()
       .projection(projection)
       .context(context);
-
-    canvas.call(d3.zoom().scaleExtent([1, 8]).on('zoom', zoomed));
     
-    function zoomed(){
-        var transf = d3.event.transform;
-        d3.save();
-        canvas.clearRect(0, 0, width, height);
-        d3.scale(transf.k, transf.k);
-        d3.translate(transf.x, transf.y);
-        draw();
-        d3.restore();
-    }
-      
+    
     var state = {
       clickedLocation: null
     };
