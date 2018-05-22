@@ -110,7 +110,7 @@ var renderWebgl = function (vertexShaderText, fragmentShaderText) {
         .translate(offset).scale(100);
  
     var vertcount = 0;
-     
+    var totalTime = 0; 
     //rendering each feature in a loop
     for(var k = 0; k < mapData.features.length; k++){
 
@@ -156,9 +156,11 @@ var renderWebgl = function (vertexShaderText, fragmentShaderText) {
        var featureColor = gl.getUniformLocation(program, 'featureColor');
        gl.uniform3fv(featureColor, [0.55, 0.10, 0.98]);
 
-       console.time('webgl render time');
+       var start = new Date().getTime();
        gl.drawElements(gl.TRIANGLES, featureIndices.length, gl.UNSIGNED_SHORT, 0);
-       console.timeEnd('webgl render time');
+       var end = new Date().getTime();
+       totalTime += end - start;
     }
     console.log(vertcount);
+    console.log('WebGL render time: ' + totalTime + ' ms');
 };
