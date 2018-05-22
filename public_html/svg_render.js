@@ -7,7 +7,7 @@
 /* global d3 */
 
 
-function renderSVG(projection){
+function renderSVG(projection, mapData){
     console.time('svg render time');
     document.getElementById('content').style.padding = '8% 1.4% 19.9% 0';
     
@@ -31,17 +31,11 @@ function renderSVG(projection){
         
     d3.select('svg').attr('display', 'inline');   
     
-    //imported data
-    var mapData = JSON.parse(localStorage.geodata);
+    
     var features = mapData.features;
     var featuresCount = mapData.features.length;
 
-//    // guess for the projection
-//    var center = d3.geo.centroid(mapData);
-//    var scale  = 150;
-//    var offset = [width/2, height/2];
-//    var projection = d3.geo.mercator().scale(scale).center(center)
-//          .translate(offset);
+// 
 //
 //    var path = d3.geo.path().projection(projection);
 //

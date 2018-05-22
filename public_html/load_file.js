@@ -6,11 +6,6 @@
 
 /* global FileReader, projection */
 
-//clean localstorage everytime when page is reloaded
-window.onload = function(){
-    localStorage.geodata = undefined;
-};
-
 document.getElementById('imp_btn').addEventListener('click',
     function selectAndUploadFile(){ 
 
@@ -21,8 +16,8 @@ document.getElementById('imp_btn').addEventListener('click',
         reader.onloadend = function(evt) {
             if(evt.target.readyState === FileReader.DONE){
 
-                localStorage.geodata = evt.target.result;
-                renderSVG(projection);
+               // localStorage.geodata = evt.target.result;
+                renderSVG(projection, evt.target.result);
             }
         };
 
@@ -33,19 +28,19 @@ document.getElementById('imp_btn').addEventListener('click',
 document.getElementById('first_map').addEventListener('click', 
 function loadFirstMap(){
    localStorage.geodata = JSON.stringify(europe);
-   renderSVG(projection);
+   renderSVG(projection, europe);
 }, false);
 
 document.getElementById('sec_map').addEventListener('click', 
 function loadFirstMap(){
    localStorage.geodata = JSON.stringify(czech);
-   renderSVG(projection);
+   renderSVG(projection, czech);
 }, false);
 
 document.getElementById('th_map').addEventListener('click', 
 function loadFirstMap(){
    localStorage.geodata = JSON.stringify(africa);
-   renderSVG(projection);
+   renderSVG(projection, africa);
 }, false);
 
 

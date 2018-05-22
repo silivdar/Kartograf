@@ -99,14 +99,10 @@ var renderWebgl = function (vertexShaderText, fragmentShaderText) {
     //imported data
     var mapData = JSON.parse(localStorage.geodata);
     
-    // guess for the projection
-    var center = d3.geo.centroid(mapData);
     var offset = [width/250, height/500];
     
-//    projection = d3.geo.mercator().scale(scale).center(center)
-//        .translate(offset);
 
-    projection = d3.geo.mercator().translate(offset).scale(60);
+    var project = d3.geo.mercator().translate(offset).scale(60);
  
     var vertcount = 0;
     var totalTime = 0; 
@@ -118,7 +114,7 @@ var renderWebgl = function (vertexShaderText, fragmentShaderText) {
        var feature = mapData.features[k];
        
        for (var n = 0; n < feature.geometry.coordinates[0].length; n++){
-            var projCoord = projection(feature.geometry.coordinates[0][n]);
+            var projCoord = project(feature.geometry.coordinates[0][n]);
           rvert.push(projCoord[0], projCoord[1]);
            //rvert.push(feature.geometry.coordinates[0][n][0], feature.geometry.coordinates[0][n][1]);
              projCoord = [];
