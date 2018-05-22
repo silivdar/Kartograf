@@ -11,7 +11,7 @@
 function renderCanvas(projection){
     
     console.time('canvas render time');
-    document.getElementById('content').style.padding = '8.08% 1.4% 19.8% 0.5%';
+    document.getElementById('content').style.padding = '8% 1.4% 19.9% 0';
 
     // remove previous map 
     d3.select('canvas').remove();

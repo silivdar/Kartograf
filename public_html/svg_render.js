@@ -58,7 +58,7 @@ function renderSVG(projection){
 //    projection = d3.geo.mercator().center(center)
 //      .scale(scale).translate(offset);
     
-    path = path.projection(projection);
+    var path = d3.geo.path().projection(projection);
     
     var zoom = d3.behavior.zoom()
     .translate(projection.translate())
