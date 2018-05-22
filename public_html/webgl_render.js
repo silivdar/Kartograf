@@ -12,7 +12,6 @@ var loadShader = function(fileName, callback){
 
 
 var init = function (){
-    console.time('webgl render time');
     loadShader('vs.glsl', function(err, vs){
         if(err){
             console.error(err);
@@ -22,7 +21,6 @@ var init = function (){
                    console.error(err);
                } else {
                  renderWebgl(vs, fs);
-                 console.timeEnd('webgl render time');
                }
             });
         }
@@ -109,7 +107,7 @@ var renderWebgl = function (vertexShaderText, fragmentShaderText) {
 //        .translate(offset);
 
     projection = d3.geo.mercator().center(center)
-        .translate(offset).scale(60);
+        .translate(offset).scale(100);
  
     var vertcount = 0;
      
@@ -122,8 +120,8 @@ var renderWebgl = function (vertexShaderText, fragmentShaderText) {
        
        for (var n = 0; n < feature.geometry.coordinates[0].length; n++){
             var projCoord = projection(feature.geometry.coordinates[0][n]);
-           // rvert.push(projCoord[0], projCoord[1]);
-           rvert.push(feature.geometry.coordinates[0][n][0], feature.geometry.coordinates[0][n][1]);
+          rvert.push(projCoord[0], projCoord[1]);
+           //rvert.push(feature.geometry.coordinates[0][n][0], feature.geometry.coordinates[0][n][1]);
              projCoord = [];
        }
          vertcount+=rvert.length/2;  
@@ -158,7 +156,9 @@ var renderWebgl = function (vertexShaderText, fragmentShaderText) {
        var featureColor = gl.getUniformLocation(program, 'featureColor');
        gl.uniform3fv(featureColor, [0.55, 0.10, 0.98]);
 
+       console.time('webgl render time');
        gl.drawElements(gl.TRIANGLES, featureIndices.length, gl.UNSIGNED_SHORT, 0);
+       console.timeEnd('webgl render time');
     }
     console.log(vertcount);
 };
