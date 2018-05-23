@@ -6,6 +6,11 @@
 
 /* global FileReader, projection */
 
+//clean localstorage everytime when page is reloaded
+window.onload = function(){
+    localStorage.geodata = undefined;
+};
+
 document.getElementById('imp_btn').addEventListener('click',
     function selectAndUploadFile(){ 
 
@@ -16,7 +21,7 @@ document.getElementById('imp_btn').addEventListener('click',
         reader.onloadend = function(evt) {
             if(evt.target.readyState === FileReader.DONE){
 
-               // localStorage.geodata = evt.target.result;
+                localStorage.geodata = evt.target.result;
                 renderSVG(projection, evt.target.result);
             }
         };

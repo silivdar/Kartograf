@@ -99,7 +99,7 @@ var renderWebgl = function (vertexShaderText, fragmentShaderText) {
     //imported data
     var mapData = JSON.parse(localStorage.geodata);
     
-    var offset = [width/250, height/500];
+    var offset = [width/100, height/50];
     
 
     var project = d3.geo.mercator().translate(offset).scale(60);
