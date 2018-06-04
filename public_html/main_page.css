@@ -8,12 +8,22 @@ and open the template in the editor.
     Author     : dariasilivonenko
 */
 
+#header {
+    border: 2px;
+    border-style: solid;
+    border-radius: 15px;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    margin-right: 43px;
+    text-align: center;
+}
+
 #menu_area {
   
     border: 2px;
     border-style: solid;
     border-radius: 15px;
-    margin: 0 55% 10px 0px;
+    margin: 0 780px 10px 0px;
     padding: 10% 0 28% 0;
 }
 
@@ -24,7 +34,7 @@ and open the template in the editor.
     border: 2px;
     border-style: solid;
     border-radius: 15px;
-    margin: 0 0px 0 45%;
+    margin: 0 0 0 640px;
     padding: 0 50% 56% 0;
 }
 

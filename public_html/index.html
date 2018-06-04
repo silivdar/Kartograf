@@ -12,6 +12,9 @@ and open the template in the editor.
         <link href="main_page.css" rel="stylesheet">
     </head>
     <body>
+        <div id="header">
+            <p>Vizualisation of GeoJSON maps</p>
+        </div>
         <div id="content"></div>
         
         <div id="menu_area" >
@@ -26,7 +29,7 @@ and open the template in the editor.
             </div>
             <h3> you can choose the way of rendering:</h3>
             <div class="choose_btn">
-                <button id="canvas_btn" onclick="renderCanvas(projection)">HTML Canvas</button>
+                <button id="canvas_btn" onclick="renderCanvas(projection, localStorage.geodata)">HTML Canvas</button>
                 <button id="svg_btn" onclick="renderSVG(projection, localStorage.geodata)">SVG</button>
                 <button id="webgl_btn" onclick='init()'>WebGL</button>
             </div>

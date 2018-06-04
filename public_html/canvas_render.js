@@ -8,7 +8,7 @@
 /* global d3 */
 
 
-function renderCanvas(projection){
+function renderCanvas(projection, mapData){
     
     console.time('canvas render time');
     document.getElementById('content').style.padding = '8% 1.4% 19.9% 0';
@@ -34,7 +34,7 @@ function renderCanvas(projection){
        .range(['#E8E4F6', '#9488BF']); 
        
     //imported data
-    var mapData = JSON.parse(localStorage.geodata);
+    mapData = JSON.parse(localStorage.geodata);
     var featuresCount = mapData.features.length;
 
     // guess for the projection

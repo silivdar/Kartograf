@@ -32,7 +32,7 @@ function renderSVG(projection, mapData){
     d3.select('svg').attr('display', 'inline');   
     
     //imported data
-    var mapData = JSON.parse(localStorage.geodata);
+    mapData = JSON.parse(localStorage.geodata);
     var features = mapData.features;
     var featuresCount = mapData.features.length;
 

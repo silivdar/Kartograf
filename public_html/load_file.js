@@ -48,8 +48,6 @@ function loadFirstMap(){
    renderSVG(projection, africa);
 }, false);
 
-//document.getElementById('svg_btn').addEventListener('click', function render(){
-//    renderSVG(projection, localStorage.geodata);
-//}, false);
+
 
 
